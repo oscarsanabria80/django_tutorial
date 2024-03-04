@@ -32,7 +32,7 @@ pipeline {
                     steps {
                         script {
                             withDockerRegistry([credentialsId: 'DOCKER_HUB', url: '']) {
-                            def dockerImage = docker.build("oscarsanabria80/django_tutorial:${env.BUILD_ID}")
+                            def dockerImage = docker.build("oscarsanabria80/django_tutorial1:latest")
                             dockerImage.push()
                             }
                         }
@@ -41,7 +41,7 @@ pipeline {
                 stage('Remove image') {
                     steps {
                         script {
-                            sh "docker rmi oscarsanabria80/django_tutorial:${env.BUILD_ID}"
+                            sh "docker rmi oscarsanabria80/django_tutorial1:latest"
                         }
                     }
                 }
@@ -54,8 +54,8 @@ pipeline {
                     String tagRemove = env.BUILD_ID.toInteger() - 1
                     sshagent(credentials: ['SSH_VPS']) {
                         sh 'ssh -o StrictHostKeyChecking=no oscar@oscarsanabria.blog docker-compose down /home/oscar/django_tutorial'
-                        sh "ssh -o StrictHostKeyChecking=no oscar@oscarsanabria.blog docker rmi oscarsanabria80/django_tutorial:${tagRemove}"
-                        sh "ssh -o StrictHostKeyChecking=no oscar@oscarsanabria.blog docker pull oscarsanabria80/django_tutorial:${env.BUILD_ID}"
+                        sh "ssh -o StrictHostKeyChecking=no oscar@oscarsanabria.blog docker rmi oscarsanabria80/django_tutorial1:latest}"
+                        sh "ssh -o StrictHostKeyChecking=no oscar@oscarsanabria.blog docker pull oscarsanabria80/django_tutorial1:latest"
                         sh "ssh -o StrictHostKeyChecking=no oscar@oscarsanabria.blog wget https://raw.githubusercontent.com/oscarsanabria80/django_tutorial/master/docker-compose.yaml -O docker-compose.yaml"
                         sh "ssh -o StrictHostKeyChecking=no oscar@oscarsanabria.blog DJANGO_VERSION=${env.BUILD_ID} docker-compose up -d --force-recreate"
                     }
