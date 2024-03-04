@@ -52,7 +52,7 @@ pipeline {
             steps {
                 script {
                     sshagent(credentials: ['SSH_VPS']) {
-                        sh "ssh -o StrictHostKeyChecking=no oscar@oscarsanabria.blog docker-compose -f  /home/oscar/django_tutorial/docker-compose.yaml down"
+                        sh "ssh -o StrictHostKeyChecking=no oscar@oscarsanabria.blog DJANGO_VERSION=${env.BUILD_ID} docker-compose -f /home/oscar/django_tutorial/docker-compose.yaml down"
                         sh "ssh -o StrictHostKeyChecking=no oscar@oscarsanabria.blog docker rmi oscarsanabria80/django_tutorial1:latest}"
                         sh "ssh -o StrictHostKeyChecking=no oscar@oscarsanabria.blog docker pull oscarsanabria80/django_tutorial1:latest"
                         sh "ssh -o StrictHostKeyChecking=no oscar@oscarsanabria.blog wget https://raw.githubusercontent.com/oscarsanabria80/django_tutorial/master/docker-compose.yaml -O docker-compose.yaml"
