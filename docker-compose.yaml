@@ -2,7 +2,7 @@ version: '3.3'
 services:
   django-jenkins:
     container_name: django-jenk
-    image: oscarsanabria80/django_tutorial:${DJANGO_VERSION}
+    image: oscarsanabria80/django_tutorial1:latest
     restart: always
     environment:
       ALLOWED_HOSTS: "*"
