@@ -16,7 +16,7 @@ services:
     ports:
       - 8085:8005
     depends_on:
-      - db_django_jenk
+      - db_django_jenkins
   db_django_jenkins:
     container_name: bd_mariadb_django
     image: mariadb:10.5
