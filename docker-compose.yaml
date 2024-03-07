@@ -2,7 +2,7 @@ version: '3.1'
 services:
   django-tutorial:
     container_name: django-tutorial
-    image: oscarsanabria80/django_tutorial1
+    image: oscarsanabria80/django:V7
     restart: always
     environment:
       ALLOWED_HOSTS: "*"
