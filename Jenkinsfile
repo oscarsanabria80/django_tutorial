@@ -32,7 +32,7 @@ pipeline {
                     steps {
                         script {
                             withDockerRegistry([credentialsId: 'DOCKER_HUB', url: '']) {
-                            def dockerImage = docker.build("oscarsanabria80/django_tutorial1:latest")
+                            def dockerImage = docker.build("oscarsanabria80/django:latest")
                             dockerImage.push()
                             }
                         }
@@ -41,7 +41,7 @@ pipeline {
                 stage('Remove image') {
                     steps {
                         script {
-                            sh "docker rmi oscarsanabria80/django_tutorial1:latest"
+                            sh "docker rmi oscarsanabria80/django:latest"
                         }
                     }
                 }
